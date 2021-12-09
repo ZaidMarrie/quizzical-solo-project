@@ -1,0 +1,127 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #F5F7FB;
+  font-family: 'Karla', sans-serif;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 40px 0;
+  max-width: 550px;
+}
+
+/*
+===============================================================
+| | | | | | | | | | Opening Screen Styling
+===============================================================
+*/
+
+.opening {
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.opening-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #293264;
+  margin: 0 0 7px;
+}
+
+.opening-desc {
+  color: #293264;
+  margin: 0 0 25px;
+}
+
+.btn {
+  font-size: 1rem;
+  color: #F5F7FB;
+  font-weight: 500;
+  border: 0;
+  border-radius: 15px;
+  padding: 0.5em 1.2em;
+  background-color: #4D5B9E;
+  cursor: pointer;
+}
+
+.start-btn {
+  padding: 0.7em 2em;
+}
+
+/*
+===============================================================
+| | | | | | | | | | Quiz Component Styling
+===============================================================
+*/
+
+.quiz {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.quiz-container {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 750px;
+}
+
+.quiz-item {
+  border-bottom: 1px solid #DBDEF0;
+}
+
+.quiz-question {
+  color: #293264;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 8px 0 0;
+}
+
+.quiz-answers {
+  padding: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.quiz-answer {
+  cursor: pointer;
+  color: #293264;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px;
+  text-align: center;
+  padding: 5px 0.75em;
+  border-radius: 8px;
+  border: 1px solid #4D5B9E;
+}
+
+.quiz-answer.selected {
+  border: 0;
+  background: #D6DBF5;
+}
+
+.answer-btn {
+  margin-top: 20px;
+}
