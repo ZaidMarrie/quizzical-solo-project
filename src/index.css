@@ -64,6 +64,21 @@ img {
   padding: 0.7em 2em;
 }
 
+.opening-blob-top,
+.opening-blob-bottom {
+  position: absolute;
+}
+
+.opening-blob-top {
+  top: 0;
+  right: 0;
+}
+
+.opening-blob-bottom {
+  bottom: 0;
+  left: 0;
+}
+
 /*
 ===============================================================
 | | | | | | | | | | Quiz Component Styling
@@ -72,7 +87,6 @@ img {
 
 .quiz {
   min-height: 100vh;
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -124,4 +138,20 @@ img {
 
 .answer-btn {
   margin-top: 20px;
+}
+
+.quiz-blob-top,
+.quiz-blob-bottom {
+  position: absolute;
+  z-index: 5;
+}
+
+.quiz-blob-top {
+  top: 0;
+  right: 0;
+}
+
+.quiz-blob-bottom {
+  bottom: 0;
+  left: 0;
 }
