@@ -5,40 +5,71 @@ import QuizAnswer from './QuizAnswer'
 
 function Quiz() {
     const [ quiz, setQuiz ] = useState([])
-    const [ isSelected, setIsSelected ] = useState(false)
     
-    function selectAnswer() {
-        setIsSelected(prevSelection => !prevSelection)
+    function selectAnswer(id) {
+        setQuiz(prevQuiz => prevQuiz.map(item => {
+            // Change isSelected value for answer matching id
+            const updatedAnswers = item.answers.map(answer => {
+                if (answer.id === id) {
+                    return { ...answer, isSelected: !answer.isSelected }
+                } else {
+                    return answer
+                }
+            })
+            
+            // Return updated state
+            return { ...item, answers: updatedAnswers }
+        }))        
+    }
+    
+    // This function rearranges an array
+    function shuffleArr(array) {
+        for(let i = array.length - 1; i > 0; i--) {
+            let randomIndex = Math.floor(Math.random() * (i + 1))
+            let temp = array[i]
+            array[i] = array[randomIndex]
+            array[randomIndex] = temp
+        }
+        return array
     }
     
     useEffect(function() {
         fetch('https://opentdb.com/api.php?amount=5&type=multiple')
             .then(res => res.json())
             .then(data => {
-                const quizData = data.results
-                setQuiz(quizData)
+                setQuiz(prevQuiz => data.results.map(quiz => {
+                    // Get all quiz answers
+                    const answerArr = [...quiz.incorrect_answers, quiz.correct_answer]
+                    const sortedAnswers = shuffleArr(answerArr)
+                    
+                    // Assign an id prop and isSelected prop to each answer
+                    const allAnswers = sortedAnswers.map(answer => {
+                        return { id: nanoid(), answer: answer, isSelected: false }
+                    })
+                    
+                    // Return a new object for each quiz
+                    return {
+                        question: quiz.question,
+                        answers: allAnswers,
+                        correctAnswer: quiz.correct_answer
+                    }
+                }))
             })
-            
     }, [])
     
-    const quizElements = quiz.map((item, index) => {
-        // Get all answers for each question
-        const allAnswers = item.incorrect_answers.map(answer => answer)
-        allAnswers.push(item.correct_answer)
-        // Rearrange the answers array
-        const sortedAnswers = allAnswers.sort()
-        
+    // Map over quiz in state to create list
+    const quizElements = quiz.map(quizItem => {
         return (
             <div className='quiz-item' key={nanoid()}>
-                <QuizQuestion question={item.question} />
+                <QuizQuestion question={quizItem.question} />
                 <div className='quiz-answers'>
-                    {sortedAnswers.map(answer => {
+                    {quizItem.answers.map(quizAnswer => {
                         return (
                             <QuizAnswer 
-                                answer={answer} 
-                                key={nanoid()}
-                                selectAnswer={selectAnswer}
-                                isSelected={isSelected}
+                                key={quizAnswer.id}
+                                answer={quizAnswer.answer}
+                                isSelected={quizAnswer.isSelected}
+                                selectAnswer={() => selectAnswer(quizAnswer.id)}
                             />
                         )
                     })}
