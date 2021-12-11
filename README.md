@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# Quizzical Trivia App (React)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+A Trivia quiz app built with React. The App pulls 5 random questions and gives the user 4 answer options to select from. Questions and answers data is pulled from the [OTDB API](https://opentdb.com/api_config.php).
 
-In the project directory, you can run:
+### The challenge
+- To conditionally render two screens (start screen & quiz questions screen)
+- To pull 5 questions from the The Open Trivia Database(OTDB) API
+- Tally correct answers after *check answers* button is clicked
+- Style and polish the app as in the [figma design](https://opentdb.com/api_config.php)
 
-### `npm start`
+### Screenshot
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Start Screen]()
+![Quiz Screen]()
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Links
 
-### `npm test`
+- [Live App Demo](https://quizzical-trivia-app.netlify.app/)
+- [Source Code](https://github.com/ZaidMarrie/quizzical-trivia-app)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## My Process
 
-### `npm run build`
+### Built with
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- HTML
+- CSS
+- JavaScript
+- React (create-react-app)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### What I learned
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+I learned and practiced the following concepts:
 
-### `npm run eject`
+- React Props
+- React State
+- React Hooks
+    - useState
+    - useEffect
+- Conditional Rendering
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**A snippet of the code I used**
+```javascript
+import React from 'react'
+import blobTop from './images/blobs1.png'
+import blobBottom from './images/blob5.png'
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+function Opening(props) {
+    return (
+        <div className='opening'>
+            <h1 className='opening-title'>Quizzical</h1>
+            <p className='opening-desc'>Some description if needed</p>
+            <button className='start-btn btn' onClick={props.initGame}>
+                Start quiz
+            </button>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+            {/* Decorative Elements(blobs) */}
+            <img src={blobTop} alt='' aria-hidden='true' className='opening-blob-top' />
+            <img src={blobBottom} alt='' aria-hidden='true' className='opening-blob-bottom' />
+        </div>
+    )
+}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+export default Opening
+```
 
-## Learn More
+## Author
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Github - [@ZaidMarrie](https://github.com/ZaidMarrie)
+- Twitter - [@LeKoels27](https://twitter.com/LeKoels27)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
+Pull requests are very welcome and you may freely fork this repository.
 
-### Code Splitting
+## Supporting Scrimba
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Since 2017, scrimba has created over 20 free courses and continue's launching free courses. If you perhaps are interested in learning or maybe just would like to up your skills try out their courses at [scrimba.com](www.scrimba.com).
 
-### Analyzing the Bundle Size
+- [Become a professional React developer](https://scrimba.com/course/greact)
+- [The Responsive Web Design Bootcamp](https://scrimba.com/course/gresponsive)
+- [The Ultimate JavaScript Bootcamp](https://scrimba.com/course/gjavascript)  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Happy Coding!
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
