@@ -12,8 +12,10 @@ A Trivia quiz app built with React. The App pulls 5 random questions and gives t
 
 ### Screenshot
 
-![Start Screen]()
-![Quiz Screen]()
+![Start Screen](https://user-images.githubusercontent.com/84665360/145670761-bebd9130-ea1f-4dea-9f38-e4fd3aed1c64.png)
+![Quiz Screen](https://user-images.githubusercontent.com/84665360/145670794-dc8b761f-29e8-4d70-b779-6ddc988cd5b6.png)
+
+
 
 ### Links
 
