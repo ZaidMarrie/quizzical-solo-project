@@ -1,7 +1,13 @@
+import { useState, useEffect } from "react";
+
+import OpeningScreen from "./components/OpeningScreen";
+import Quiz from "./components/Quiz";
+
 function App() {
 	return (
-		<main className="app">
-			<h1>Hello World!</h1>
+		<main className="container center">
+			<OpeningScreen />
+			<Quiz />
 		</main>
 	);
 }
