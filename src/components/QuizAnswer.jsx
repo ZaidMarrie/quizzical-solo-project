@@ -1,16 +1,26 @@
 import React from "react";
 
-function QuizAnswer({ selected, correct, incorrect }) {
+function QuizAnswer({ answer, correctAnswer, selectAnswer, checkedResults }) {
 	let classNames = "quiz__answer";
-	if (selected) {
+
+	if (answer.isSelected) {
 		classNames += " selected";
-	} else if (correct) {
-		classNames += " correct";
-	} else if (incorrect) {
-		classNames += " incorrect";
 	}
 
-	return <div className={classNames}>QuizAnswer</div>;
+	if (checkedResults && answer.isSelected && answer.answerText !== correctAnswer) {
+		classNames += " incorrect";
+	} else if (checkedResults && answer.answerText === correctAnswer) {
+		classNames += " correct";
+	}
+
+	return (
+		<div 
+			className={classNames} 
+			onClick={selectAnswer} 
+			dangerouslySetInnerHTML={{ __html: answer.answerText }}
+		>
+		</div>
+	);
 }
 
 export default QuizAnswer;

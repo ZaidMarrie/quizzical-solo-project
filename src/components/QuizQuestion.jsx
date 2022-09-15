@@ -1,7 +1,11 @@
-import React from "react";
-
-function QuizQuestion() {
-	return <h2 className="quiz__question">How would one say goodbye in Spanish?</h2>;
+function QuizQuestion({ question }) {
+	return (
+		<h2 
+			className="quiz__question" 
+			dangerouslySetInnerHTML={{ __html: question }}
+		>
+		</h2>
+	);
 }
 
 export default QuizQuestion;
