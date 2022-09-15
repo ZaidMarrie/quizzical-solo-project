@@ -5,7 +5,9 @@ function OpeningScreen({ startGame }) {
 	return (
 		<div className="opening-screen centre">
 			<h1 className="title">Quizzical</h1>
-			<p className="desc">Some description if needed</p>
+			<p className="desc">
+				A muliple-choice quiz of 5 random general knowledge questions pulled from the Open Trivia DB API.
+			</p>
 			<button className="btn" onClick={startGame}>
 				Start quiz
 			</button>
