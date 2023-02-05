@@ -1,5 +1,21 @@
 import { nanoid } from "nanoid";
 
+export const API_URL =
+	"https://opentdb.com/api.php?amount=5&category=9&type=multiple";
+
+export function formatQuizItems(quizData) {
+	return quizData.map((quizItem) => {
+		const answers = [...quizItem.incorrect_answers, quizItem.correct_answer];
+
+		return {
+			id: nanoid(),
+			question: quizItem.question,
+			answers: formatAnswers(answers, quizItem.correct_answer),
+			correct_answer: quizItem.correct_answer,
+		};
+	});
+}
+
 // Maps over answers Array(of strings) returning an Array of Objects
 function formatAnswers(answersArr, correctAnswer) {
 	const formattedAnswers = answersArr.map((answer) => {
@@ -35,30 +51,3 @@ function shuffleAnswers(answersArr) {
 
 	return answersArr;
 }
-
-function formatQuizItems(quizData) {
-	return quizData.map((quizItem) => {
-		const answers = [...quizItem.incorrect_answers, quizItem.correct_answer];
-
-		return {
-			id: nanoid(),
-			question: quizItem.question,
-			answers: formatAnswers(answers, quizItem.correct_answer),
-			correct_answer: quizItem.correct_answer,
-		};
-	});
-}
-
-// const selectAnswer = (id) => {
-// 	setQuizData((prevQuizData) =>
-// 		prevQuizData.map((item) => {
-// 			const newAnswers = item.answers.map((answer) => {
-// 				return answer.id === id ? { ...answer, isSelected: !answer.isSelected } : answer;
-// 			});
-// 			return { ...item, answers: newAnswers };
-// 		})
-// 	);
-// 	console.log(quizData);
-// };
-
-export { formatQuizItems };
