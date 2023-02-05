@@ -1,0 +1,82 @@
+.screen {
+	text-align: center;
+	padding-block: 2rem;
+	display: grid;
+}
+
+.screen h1 {
+	font-size: 2.5rem;
+	line-height: 1.1;
+	color: var(--clr-purple-200);
+}
+
+.screen p {
+	max-width: 45rem;
+	margin-inline: auto;
+}
+
+/* Paragraph with a h1 before it */
+.screen h1 + p,
+.form {
+	margin-top: 2.5rem;
+}
+
+.screen p + p {
+	margin-top: 1rem;
+}
+
+.form {
+	text-align: start;
+	padding: 2.1875rem 3.625rem;
+	border-radius: 0.625rem;
+	background-color: var(--clr-presets-background);
+	display: grid;
+	gap: 1rem;
+}
+
+@media (min-width: 50em) {
+	.form {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.form__btn,
+	.form__group:last-of-type {
+		grid-column: 1 / -1;
+	}
+}
+
+.form__group {
+	display: grid;
+	gap: 0.5rem;
+}
+
+.form__input,
+.form__btn {
+	border: 0;
+	border-radius: 3px;
+}
+
+.form__input {
+	color: var(--clr-neutral-500);
+	min-height: 2.875rem;
+	padding: 0.625rem 0.5rem;
+	background-color: var(--clr-background);
+}
+
+.form__input:focus,
+.form__input:focus,
+.form__btn:focus {
+	outline: 2px solid var(--clr-purple-600);
+}
+
+.form__btn {
+	width: 100%;
+	margin-top: 1rem;
+	padding: 0.75rem 1.5rem;
+	background-color: var(--clr-purple-600);
+}
+
+.form__btn:hover,
+.form__btn:focus {
+	background-color: var(--clr-purple-700);
+}
