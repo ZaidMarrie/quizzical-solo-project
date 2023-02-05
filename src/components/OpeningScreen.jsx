@@ -108,7 +108,7 @@ function OpeningScreen({ startGame }) {
 					</select>
 				</div>
 
-				<button type="submit" className={styles.form__btn} onClick={startGame}>
+				<button type="submit" className="btn" onClick={startGame}>
 					Start Quiz
 				</button>
 			</form>
