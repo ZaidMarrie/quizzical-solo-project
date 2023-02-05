@@ -27,11 +27,11 @@
 
 .form {
 	text-align: start;
-	padding: 2.1875rem 3.625rem;
+	padding: 2.1875rem 2.5rem;
 	border-radius: 0.625rem;
 	background-color: var(--clr-presets-background);
 	display: grid;
-	gap: 1rem;
+	gap: 1.5rem;
 }
 
 @media (min-width: 50em) {
@@ -48,6 +48,10 @@
 .form__group {
 	display: grid;
 	gap: 0.5rem;
+}
+
+.form__label {
+	font-weight: 700;
 }
 
 .form__input,

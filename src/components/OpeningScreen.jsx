@@ -33,7 +33,10 @@ function OpeningScreen({ startGame }) {
 
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<div className={styles.form__group}>
-					<label htmlFor="questionCount">Number of questions</label>
+					<label htmlFor="questionCount" className={styles.form__label}>
+						Number of questions
+					</label>
+
 					<input
 						type="number"
 						name="questionCount"
@@ -47,7 +50,10 @@ function OpeningScreen({ startGame }) {
 				</div>
 
 				<div className={styles.form__group}>
-					<label htmlFor="difficulty">Select Difficulty</label>
+					<label htmlFor="difficulty" className={styles.form__label}>
+						Select Difficulty
+					</label>
+
 					<select
 						name="difficulty"
 						id="difficulty"
@@ -63,7 +69,10 @@ function OpeningScreen({ startGame }) {
 				</div>
 
 				<div className={styles.form__group}>
-					<label htmlFor="category">Select a category</label>
+					<label htmlFor="category" className={styles.form__label}>
+						Select a category
+					</label>
+
 					<select
 						name="category"
 						id="category"
