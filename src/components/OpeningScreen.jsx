@@ -20,8 +20,6 @@ function OpeningScreen({ startGame }) {
 
 	return (
 		<div className={styles.screen}>
-			<h1>Quizzical</h1>
-
 			<p>
 				Welcome to my trivia quiz app. This is a multiple choice based game that
 				tests your knowledge on various categories by pulling in questions from

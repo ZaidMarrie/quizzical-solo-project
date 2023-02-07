@@ -73,10 +73,6 @@ img {
 }
 
 /* Utility Classes */
-.container {
-	width: min(100% - 3.25rem, 62.5rem);
-	margin-inline: auto;
-}
 
 .btn {
 	width: 100%;
