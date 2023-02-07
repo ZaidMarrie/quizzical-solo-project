@@ -1,25 +1,14 @@
-import React from "react";
+import styles from "@/styles/QuizAnswer.module.css";
 
-function QuizAnswer({ answer, correctAnswer, selectAnswer, checkedResults }) {
-	let classNames = "quiz__answer";
-
-	if (answer.isSelected) {
-		classNames += " selected";
-	}
-
-	if (checkedResults && answer.isSelected && answer.answerText !== correctAnswer) {
-		classNames += " incorrect";
-	} else if (checkedResults && answer.answerText === correctAnswer) {
-		classNames += " correct";
-	}
-
+function QuizAnswer({ answer, handleSelect }) {
 	return (
-		<div 
-			className={classNames} 
-			onClick={selectAnswer} 
+		<button
+			className={`${styles.answer} ${
+				answer.isSelected ? styles["answer--selected"] : ""
+			}`}
+			onClick={() => handleSelect(answer.id)}
 			dangerouslySetInnerHTML={{ __html: answer.answerText }}
-		>
-		</div>
+		></button>
 	);
 }
 

@@ -1,116 +1,112 @@
-import { useState, useEffect } from "react";
-import { formatQuizItems } from "../utils";
-
-import blobTopRight from "../assets/blob-quiz-top.png";
-import blobBottomLeft from "../assets/blob-quiz-bottom.png";
-
 import QuizItem from "./QuizItem";
-import QuizQuestion from "./QuizQuestion";
-import QuizAnswer from "./QuizAnswer";
+import StatisticsBar from "./StatisticsBar";
+import { useState, useEffect } from "react";
+import { usePresets } from "@/context/PresetsContext";
+import { API_URL, formatQuizItems } from "@/utils";
 
 function Quiz() {
+	const { presets } = usePresets();
+
 	const [quizData, setQuizData] = useState([]);
-	const [quizScore, setQuizScore] = useState(0);
-	const [checkedResults, setCheckedResults] = useState(false);
+	const [questionIndex, setQuestionIndex] = useState(0);
+	const [quizStats, setQuizStats] = useState({
+		remaining: 0,
+		correct: 0,
+		incorrect: 0,
+		timer: "00:30",
+	});
+
 	const [playingAgain, setPlayingAgain] = useState(false);
+	const [checkedResults, setCheckedResults] = useState(false);
 
 	useEffect(() => {
-		getQuizData("https://opentdb.com/api.php?amount=5&category=9&type=multiple");
+		const getQuizData = async (presets) => {
+			const category =
+				presets.category !== "any" ? `&category=${presets.category}` : "";
+			const difficulty =
+				presets.difficulty !== "any" ? `&difficulty=${presets.difficulty}` : "";
+
+			const url = `${API_URL}&amount=${
+				presets.questionCount + category + difficulty
+			}`;
+
+			try {
+				const res = await fetch(url);
+				const data = await res.json();
+				const quizData = formatQuizItems(data.results);
+
+				setQuizData(quizData);
+				setQuizStats({
+					remaining: quizData.length,
+					correct: 0,
+					incorrect: 0,
+					timer: "00:30",
+				});
+				setCheckedResults(false);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+
+		getQuizData(presets);
 	}, [playingAgain]);
 
-	const getQuizData = async (url) => {
-		const res = await fetch(url);
-		const data = await res.json();
-		const quizData = formatQuizItems(data.results);
+	// const getQuizData = async (url) => {
+	// 	const res = await fetch(url);
+	// 	const data = await res.json();
+	// 	const quizData = formatQuizItems(data.results);
 
-		setQuizData(quizData);
-		setQuizScore(0);
-		setCheckedResults(false);
-	};
+	// 	setQuizData(quizData);
+	// 	setQuizStats({
+	// 		remaining: quizData.length,
+	// 		correct: 0,
+	// 		incorrect: 0,
+	// 		timer: "00:30",
+	// 	});
+	// 	setCheckedResults(false);
+	// };
 
-	const selectAnswer = (itemId, answerId) => {
-		setQuizData((prevQuizData) => {
-			return prevQuizData.map((quizItem) => {
+	// Selects and highlights an answer
+	const selectAnswer = (answerId) => {
+		setQuizData((prevQuizData) =>
+			prevQuizData.map((quizItem, idx) => {
+				if (idx !== questionIndex) return quizItem;
+
 				/* Maps over answers Array and switch the `isSelected` property
 				 * on the selected answer, changing the rest of the answers of that
-				 * questions `isSelected` property to `false`
+				 * question's `isSelected` property to `false`
 				 */
 				const newAnswers = quizItem.answers.map((answer) => {
-					if (quizItem.id === itemId && answer.id === answerId) {
+					if (answer.id === answerId) {
 						return { ...answer, isSelected: !answer.isSelected };
-					} else if (quizItem.id === itemId) {
-						return { ...answer, isSelected: false };
 					} else {
-						return answer;
+						return { ...answer, isSelected: false };
 					}
 				});
 
 				return { ...quizItem, answers: newAnswers };
-			});
-		});
+			})
+		);
 	};
 
-	const handleClick = () => {
-		const allQuestionsAnswered = quizData.every((quizItem) => {
-			// Checks if there is an answer selected
-			return quizItem.answers.some((answer) => answer.isSelected);
-		});
-
-		if (allQuestionsAnswered && !playingAgain) {
-			setCheckedResults(true);
-
-			quizData.forEach((quizItem) => {
-				quizItem.answers.forEach((answer) => {
-					if (answer.isSelected && answer.answerText === quizItem.correct_answer) {
-						setQuizScore((prevQuizScore) => prevQuizScore + 1);
-					}
-				});
-			});
-		}
-
-		if (checkedResults) {
-			setPlayingAgain(true);
-			setCheckedResults(false);
-
-			setTimeout(() => setPlayingAgain(false), 0);
-		}
-	};
+	// Increments the `questionIndex`, going to next question
+	const goToNextQuestion = () => setQuestionIndex((prevIndex) => prevIndex + 1);
 
 	return (
-		<div className="quiz">
-			{quizData.map((quizItem) => {
-				return (
-					<QuizItem key={quizItem.id}>
-						<QuizQuestion question={quizItem.question} />
+		<div>
+			<StatisticsBar />
+			{/* <StatisticsBar remaining={quizStats.remaining} correct={quizStats.correct} incorrect={quizStats.incorrect} timer={quizStats.timer} /> */}
 
-						<div className="quiz__answers flex">
-							{quizItem.answers.map((answer) => {
-								return (
-									<QuizAnswer
-										key={answer.id}
-										answer={answer}
-										correctAnswer={quizItem.correct_answer}
-										checkedResults={checkedResults}
-										selectAnswer={() => selectAnswer(quizItem.id, answer.id)}
-									/>
-								);
-							})}
-						</div>
-					</QuizItem>
-				);
-			})}
-
-			<img src={blobTopRight} alt="A circular blob" className="blob blob--top-right" />
-			<img src={blobBottomLeft} alt="A circular blob" className="blob blob--bottom-left" />
-
-			<div className="results flex">
-				{checkedResults && (
-					<p className="results-text">{`You scored ${quizScore}/5 correct answers`}</p>
-				)}
-				<button className="btn btn--quiz" onClick={handleClick}>
-					{checkedResults ? "Play again" : "Check answers"}
-				</button>
-			</div>
+			{quizData.length > 0 && (
+				<QuizItem
+					key={quizData[questionIndex].id}
+					quizItem={quizData[questionIndex]}
+					handleSelect={selectAnswer}
+					questionIndex={questionIndex}
+					goToNextQuestion={goToNextQuestion}
+					setQuizStats={setQuizStats}
+				/>
+			)}
 		</div>
 	);
 }

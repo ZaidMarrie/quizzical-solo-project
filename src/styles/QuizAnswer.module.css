@@ -1,0 +1,23 @@
+.answer {
+	cursor: pointer;
+	color: var(--clr-neutral-200);
+	padding: 1rem 1.125rem;
+	border: 3px solid currentColor;
+	border-radius: 0.625rem;
+	background-color: transparent;
+	box-shadow: var(--shadow-200);
+}
+
+.answer:hover,
+.answer:focus {
+	color: var(--clr-neutral-50);
+}
+
+.answer--selected {
+	color: var(--clr-purple-400);
+}
+
+.answer--selected:hover,
+.answer--selected:focus {
+	color: var(--clr-purple-400);
+}

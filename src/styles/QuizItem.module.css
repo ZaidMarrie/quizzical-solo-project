@@ -1,0 +1,11 @@
+.quizItem {
+	padding: 3.25rem 2.5rem;
+	border-bottom-left-radius: 0.625rem;
+	border-bottom-right-radius: 0.625rem;
+	background-color: var(--clr-blue-600);
+}
+
+.quizAnswers {
+	display: grid;
+	gap: 1rem;
+}

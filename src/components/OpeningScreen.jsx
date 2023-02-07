@@ -3,13 +3,14 @@ import { usePresets } from "@/context/PresetsContext";
 import styles from "@/styles/OpeningScreen.module.css";
 
 function OpeningScreen({ startGame }) {
-	const { presets, setPresets } = usePresets();
+	const { presets, updatePresets } = usePresets();
 	const [formData, setFormData] = useState(presets);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		setPresets(formData);
+		updatePresets(formData);
+		startGame();
 	};
 
 	const handleChange = (e) => {
@@ -106,7 +107,7 @@ function OpeningScreen({ startGame }) {
 					</select>
 				</div>
 
-				<button type="submit" className="btn" onClick={startGame}>
+				<button type="submit" className="btn">
 					Start Quiz
 				</button>
 			</form>

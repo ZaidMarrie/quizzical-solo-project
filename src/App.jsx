@@ -1,7 +1,8 @@
-import { useState } from "react";
-
+import PresetsProvider from "./context/PresetsContext";
+import Layout from "@/components/Layout";
 import OpeningScreen from "./components/OpeningScreen";
 import Quiz from "./components/Quiz";
+import { useState } from "react";
 
 function App() {
 	const [gameStarted, setGameStarted] = useState(false);
@@ -11,9 +12,11 @@ function App() {
 	};
 
 	return (
-		<main className="container center">
-			{gameStarted ? <Quiz /> : <OpeningScreen startGame={startGame} />}
-		</main>
+		<PresetsProvider>
+			<Layout>
+				{gameStarted ? <Quiz /> : <OpeningScreen startGame={startGame} />}
+			</Layout>
+		</PresetsProvider>
 	);
 }
 
