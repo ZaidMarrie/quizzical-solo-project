@@ -1,0 +1,29 @@
+.stats {
+	margin-top: 2.5rem;
+	padding: 1.25rem 2.5rem;
+	border-top-left-radius: 0.625rem;
+	border-top-right-radius: 0.625rem;
+	background-color: var(--clr-blue-700);
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+
+.stats__column {
+	display: grid;
+	gap: 0.625rem;
+}
+
+.stats__column span {
+	text-align: center;
+	display: inline-block;
+}
+
+.stats__column span:nth-child(1) {
+	color: var(--clr-neutral-200);
+}
+
+.stats__column span:nth-child(2) {
+	font-size: 2.1875rem;
+	font-weight: 700;
+}
