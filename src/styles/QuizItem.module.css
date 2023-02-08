@@ -3,6 +3,7 @@
 	border-bottom-left-radius: 0.625rem;
 	border-bottom-right-radius: 0.625rem;
 	background-color: var(--clr-blue-600);
+	box-shadow: var(--shadow-500);
 }
 
 .quizAnswers {

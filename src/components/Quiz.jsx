@@ -1,5 +1,6 @@
 import QuizItem from "./QuizItem";
 import StatisticsBar from "./StatisticsBar";
+import QuizResults from "./QuizResults";
 import { useState, useEffect } from "react";
 import { usePresets } from "@/context/PresetsContext";
 import { API_URL, formatQuizItems } from "@/utils";
@@ -16,8 +17,8 @@ function Quiz() {
 		timer: "00:30",
 	});
 
+	const [quizCompleted, setQuizCompleted] = useState(false);
 	const [playingAgain, setPlayingAgain] = useState(false);
-	const [checkedResults, setCheckedResults] = useState(false);
 
 	useEffect(() => {
 		const getQuizData = async (presets) => {
@@ -36,13 +37,14 @@ function Quiz() {
 				const quizData = formatQuizItems(data.results);
 
 				setQuizData(quizData);
+				setQuestionIndex(0);
 				setQuizStats({
 					remaining: quizData.length,
 					correct: 0,
 					incorrect: 0,
 					timer: "00:30",
 				});
-				setCheckedResults(false);
+				setQuizCompleted(false);
 			} catch (err) {
 				console.log(err);
 			}
@@ -50,21 +52,6 @@ function Quiz() {
 
 		getQuizData(presets);
 	}, [playingAgain]);
-
-	// const getQuizData = async (url) => {
-	// 	const res = await fetch(url);
-	// 	const data = await res.json();
-	// 	const quizData = formatQuizItems(data.results);
-
-	// 	setQuizData(quizData);
-	// 	setQuizStats({
-	// 		remaining: quizData.length,
-	// 		correct: 0,
-	// 		incorrect: 0,
-	// 		timer: "00:30",
-	// 	});
-	// 	setCheckedResults(false);
-	// };
 
 	// Selects and highlights an answer
 	const selectAnswer = (answerId) => {
@@ -90,14 +77,31 @@ function Quiz() {
 	};
 
 	// Increments the `questionIndex`, going to next question
-	const goToNextQuestion = () => setQuestionIndex((prevIndex) => prevIndex + 1);
+	const goToNextQuestion = () => {
+		const quizQuestionsCount = presets.questionCount - 1;
+
+		if (questionIndex < quizQuestionsCount) {
+			setQuestionIndex((prevIndex) => prevIndex + 1);
+			return;
+		}
+
+		setQuizCompleted(true);
+	};
+
+	const playAgain = () => {
+		setPlayingAgain(true);
+
+		const timerId = setTimeout(() => {
+			setPlayingAgain(false);
+		}, 0);
+	};
 
 	return (
 		<div>
-			<StatisticsBar />
+			{!quizCompleted && <StatisticsBar />}
 			{/* <StatisticsBar remaining={quizStats.remaining} correct={quizStats.correct} incorrect={quizStats.incorrect} timer={quizStats.timer} /> */}
 
-			{quizData.length > 0 && (
+			{quizData.length > 0 && !quizCompleted ? (
 				<QuizItem
 					key={quizData[questionIndex].id}
 					quizItem={quizData[questionIndex]}
@@ -105,6 +109,14 @@ function Quiz() {
 					questionIndex={questionIndex}
 					goToNextQuestion={goToNextQuestion}
 					setQuizStats={setQuizStats}
+				/>
+			) : null}
+
+			{quizCompleted && (
+				<QuizResults
+					answersCorrect={quizStats.correct}
+					answersIncorrect={quizStats.incorrect}
+					playAgain={playAgain}
 				/>
 			)}
 		</div>

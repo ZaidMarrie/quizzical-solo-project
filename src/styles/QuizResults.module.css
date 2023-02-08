@@ -1,0 +1,25 @@
+.resultsContainer {
+	margin-top: 2.5rem;
+	padding: 3.25rem 2.5rem;
+	border-radius: 0.625rem;
+	background-color: var(--clr-blue-600);
+	box-shadow: var(--shadow-400);
+}
+
+.resultsContainer h2 {
+	font-size: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.results {
+	display: grid;
+	gap: 1rem;
+}
+
+.results > * {
+	color: var(--clr-neutral-200);
+	padding: 1rem 1.125rem;
+	border-radius: 0.635rem;
+	background-color: var(--clr-blue-700);
+	box-shadow: var(--shadow-200);
+}
