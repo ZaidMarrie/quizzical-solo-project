@@ -1,7 +1,5 @@
 import { nanoid } from "nanoid";
 
-export const API_URL = "https://opentdb.com/api.php?type=multiple";
-
 export function formatQuizItems(quizData) {
 	return quizData.map((quizItem) => {
 		const answers = [...quizItem.incorrect_answers, quizItem.correct_answer];
