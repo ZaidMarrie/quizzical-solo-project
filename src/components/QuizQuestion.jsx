@@ -1,11 +1,19 @@
+import { motion } from "framer-motion";
 import styles from "@/styles/QuizQuestion.module.css";
+
+const titleVariants = {
+	hidden: { opacity: 0 },
+	visible: { opacity: 1 },
+	exit: { opacity: 0 },
+};
 
 function QuizQuestion({ question }) {
 	return (
-		<h2
+		<motion.h2
+			variants={titleVariants}
 			className={styles.question}
 			dangerouslySetInnerHTML={{ __html: question }}
-		></h2>
+		></motion.h2>
 	);
 }
 

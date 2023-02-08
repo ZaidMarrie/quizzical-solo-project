@@ -1,6 +1,13 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { usePresets } from "@/context/PresetsContext";
 import styles from "@/styles/OpeningScreen.module.css";
+
+const screenVariants = {
+	hidden: { opacity: 0, x: "100vh" },
+	visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+	exit: { opacity: 0, x: "100vh" },
+};
 
 function OpeningScreen({ startGame }) {
 	const { presets, updatePresets } = usePresets();
@@ -20,7 +27,14 @@ function OpeningScreen({ startGame }) {
 	};
 
 	return (
-		<div className={styles.screen}>
+		<motion.div
+			className={styles.screen}
+			key="OpeningScreen"
+			initial="hidden"
+			animate="visible"
+			exit="exit"
+			variants={screenVariants}
+		>
 			<p>
 				Welcome to my trivia quiz app. This is a multiple choice based game that
 				tests your knowledge on various categories by pulling in questions from
@@ -111,7 +125,7 @@ function OpeningScreen({ startGame }) {
 					Start Quiz
 				</button>
 			</form>
-		</div>
+		</motion.div>
 	);
 }
 

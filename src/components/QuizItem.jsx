@@ -1,8 +1,25 @@
 import QuizQuestion from "./QuizQuestion";
 import QuizAnswer from "./QuizAnswer";
 import { ToastContainer, toast } from "react-toastify";
+import { motion } from "framer-motion";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "@/styles/QuizItem.module.css";
+
+const itemVariants = {
+	hidden: { opacity: 0, x: "50vh" },
+	visible: {
+		opacity: 1,
+		x: 0,
+		transition: { duration: 0.4, staggerChildren: 0.15, delayChildren: 0.25 },
+	},
+	exit: { opacity: 0, x: "-50vh" },
+};
+
+const buttonVariants = {
+	hidden: { opacity: 0, x: 100 },
+	visible: { opacity: 1, x: 0 },
+	exit: { opacity: 0, x: -100 },
+};
 
 function QuizItem({ quizItem, handleSelect, nextQuestion, setStats }) {
 	const { answers, correct_answer } = quizItem;
@@ -45,7 +62,7 @@ function QuizItem({ quizItem, handleSelect, nextQuestion, setStats }) {
 	};
 
 	return (
-		<div className={styles.quizItem}>
+		<motion.div className={styles.quizItem} variants={itemVariants}>
 			<QuizQuestion question={quizItem.question} />
 
 			<ToastContainer limit={3} />
@@ -60,10 +77,14 @@ function QuizItem({ quizItem, handleSelect, nextQuestion, setStats }) {
 				))}
 			</div>
 
-			<button className="btn" onClick={handleClick}>
+			<motion.button
+				className="btn"
+				onClick={handleClick}
+				variants={buttonVariants}
+			>
 				Next Question
-			</button>
-		</div>
+			</motion.button>
+		</motion.div>
 	);
 }
 

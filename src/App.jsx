@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import OpeningScreen from "./components/OpeningScreen";
 import Quiz from "./components/Quiz";
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
 	const [gameStarted, setGameStarted] = useState(false);
@@ -14,7 +15,9 @@ function App() {
 	return (
 		<PresetsProvider>
 			<Layout>
-				{gameStarted ? <Quiz /> : <OpeningScreen startGame={startGame} />}
+				<AnimatePresence mode="wait" initial={false}>
+					{gameStarted ? <Quiz /> : <OpeningScreen startGame={startGame} />}
+				</AnimatePresence>
 			</Layout>
 		</PresetsProvider>
 	);

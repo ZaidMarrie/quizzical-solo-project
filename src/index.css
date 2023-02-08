@@ -52,6 +52,7 @@ body {
 	min-height: 100vh;
 	background-color: var(--clr-blue-900);
 	isolation: isolate;
+	overflow-x: hidden;
 }
 
 input,

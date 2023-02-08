@@ -2,9 +2,16 @@ import QuizItem from "./QuizItem";
 import StatisticsBar from "./StatisticsBar";
 import QuizResults from "./QuizResults";
 import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { API_URL } from "@/config";
 import { usePresets } from "@/context/PresetsContext";
 import { formatQuizItems } from "@/utils";
+
+const quizVariants = {
+	hidden: { opacity: 0, x: "100vh" },
+	visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+	exit: { opacity: 0, x: "100vh" },
+};
 
 function Quiz() {
 	const { presets } = usePresets();
@@ -99,36 +106,44 @@ function Quiz() {
 	};
 
 	return (
-		<div>
-			{!quizCompleted && (
-				<StatisticsBar
-					remaining={quizStats.remaining}
-					correct={quizStats.correct}
-					incorrect={quizStats.incorrect}
-					questionIndex={questionIndex}
-					nextQuestion={nextQuestion}
-				/>
-			)}
+		<motion.div
+			key="quiz"
+			initial="hidden"
+			animate="visible"
+			exit="exit"
+			variants={quizVariants}
+		>
+			<AnimatePresence mode="wait">
+				{!quizCompleted && (
+					<StatisticsBar
+						remaining={quizStats.remaining}
+						correct={quizStats.correct}
+						incorrect={quizStats.incorrect}
+						questionIndex={questionIndex}
+						nextQuestion={nextQuestion}
+					/>
+				)}
 
-			{quizData.length > 0 && !quizCompleted ? (
-				<QuizItem
-					key={quizData[questionIndex].id}
-					quizItem={quizData[questionIndex]}
-					handleSelect={selectAnswer}
-					questionIndex={questionIndex}
-					nextQuestion={nextQuestion}
-					setStats={setQuizStats}
-				/>
-			) : null}
+				{quizData.length > 0 && !quizCompleted ? (
+					<QuizItem
+						key={quizData[questionIndex].id}
+						quizItem={quizData[questionIndex]}
+						handleSelect={selectAnswer}
+						questionIndex={questionIndex}
+						nextQuestion={nextQuestion}
+						setStats={setQuizStats}
+					/>
+				) : null}
 
-			{quizCompleted && (
-				<QuizResults
-					correct={quizStats.correct}
-					incorrect={quizStats.incorrect}
-					playAgain={playAgain}
-				/>
-			)}
-		</div>
+				{quizCompleted && (
+					<QuizResults
+						correct={quizStats.correct}
+						incorrect={quizStats.incorrect}
+						playAgain={playAgain}
+					/>
+				)}
+			</AnimatePresence>
+		</motion.div>
 	);
 }
 
