@@ -2,8 +2,9 @@ import QuizItem from "./QuizItem";
 import StatisticsBar from "./StatisticsBar";
 import QuizResults from "./QuizResults";
 import { useState, useEffect } from "react";
+import { API_URL } from "@/config";
 import { usePresets } from "@/context/PresetsContext";
-import { API_URL, formatQuizItems } from "@/utils";
+import { formatQuizItems } from "@/utils";
 
 function Quiz() {
 	const { presets } = usePresets();
@@ -14,7 +15,6 @@ function Quiz() {
 		remaining: 0,
 		correct: 0,
 		incorrect: 0,
-		timer: "00:30",
 	});
 
 	const [quizCompleted, setQuizCompleted] = useState(false);
@@ -42,7 +42,6 @@ function Quiz() {
 					remaining: quizData.length,
 					correct: 0,
 					incorrect: 0,
-					timer: "00:30",
 				});
 				setQuizCompleted(false);
 			} catch (err) {
@@ -77,10 +76,14 @@ function Quiz() {
 	};
 
 	// Increments the `questionIndex`, going to next question
-	const goToNextQuestion = () => {
+	const nextQuestion = () => {
 		const quizQuestionsCount = presets.questionCount - 1;
 
 		if (questionIndex < quizQuestionsCount) {
+			setQuizStats((prevStats) => ({
+				...prevStats,
+				remaining: prevStats.remaining - 1,
+			}));
 			setQuestionIndex((prevIndex) => prevIndex + 1);
 			return;
 		}
@@ -88,18 +91,24 @@ function Quiz() {
 		setQuizCompleted(true);
 	};
 
+	// Restarts the quiz with new questions
 	const playAgain = () => {
 		setPlayingAgain(true);
 
-		const timerId = setTimeout(() => {
-			setPlayingAgain(false);
-		}, 0);
+		setTimeout(() => setPlayingAgain(false), 0);
 	};
 
 	return (
 		<div>
-			{!quizCompleted && <StatisticsBar />}
-			{/* <StatisticsBar remaining={quizStats.remaining} correct={quizStats.correct} incorrect={quizStats.incorrect} timer={quizStats.timer} /> */}
+			{!quizCompleted && (
+				<StatisticsBar
+					remaining={quizStats.remaining}
+					correct={quizStats.correct}
+					incorrect={quizStats.incorrect}
+					questionIndex={questionIndex}
+					nextQuestion={nextQuestion}
+				/>
+			)}
 
 			{quizData.length > 0 && !quizCompleted ? (
 				<QuizItem
@@ -107,15 +116,15 @@ function Quiz() {
 					quizItem={quizData[questionIndex]}
 					handleSelect={selectAnswer}
 					questionIndex={questionIndex}
-					goToNextQuestion={goToNextQuestion}
-					setQuizStats={setQuizStats}
+					nextQuestion={nextQuestion}
+					setStats={setQuizStats}
 				/>
 			) : null}
 
 			{quizCompleted && (
 				<QuizResults
-					answersCorrect={quizStats.correct}
-					answersIncorrect={quizStats.incorrect}
+					correct={quizStats.correct}
+					incorrect={quizStats.incorrect}
 					playAgain={playAgain}
 				/>
 			)}

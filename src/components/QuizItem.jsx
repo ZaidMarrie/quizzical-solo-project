@@ -1,19 +1,10 @@
 import QuizQuestion from "./QuizQuestion";
-import { useState, useEffect } from "react";
-import { usePresets } from "@/context/PresetsContext";
-import { formatQuizItems, API_URL } from "@/utils";
+import QuizAnswer from "./QuizAnswer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "@/styles/QuizItem.module.css";
-import QuizAnswer from "./QuizAnswer";
 
-function QuizItem({
-	quizItem,
-	handleSelect,
-	questionIndex,
-	goToNextQuestion,
-	setQuizStats,
-}) {
+function QuizItem({ quizItem, handleSelect, nextQuestion, setStats }) {
 	const { answers, correct_answer } = quizItem;
 
 	// Make sure the question is answered before next question, and update stats
@@ -25,12 +16,11 @@ function QuizItem({
 				autoClose: 2000,
 				theme: "dark",
 			});
-
 			return;
 		}
 
 		updateStats(answers, correct_answer);
-		goToNextQuestion();
+		nextQuestion();
 	};
 
 	// Update the statistics before next question
@@ -38,21 +28,17 @@ function QuizItem({
 		answers.forEach((answer) => {
 			// Check if the selected answer is correct
 			if (answer.isSelected && answer.answerText === correctAnswer) {
-				setQuizStats((prevQuizStats) => ({
-					...prevQuizStats,
-					remaining: questionIndex + 1,
-					correct: prevQuizStats.correct + 1,
-					timer: "00:30",
+				setStats((prevStats) => ({
+					...prevStats,
+					correct: prevStats.correct + 1,
 				}));
 			}
 
-			// Increment if the selected answer is incorrect
+			// Check if the selected answer is incorrect
 			if (answer.isSelected && answer.answerText !== correctAnswer) {
-				setQuizStats((prevQuizStats) => ({
-					...prevQuizStats,
-					remaining: questionIndex + 1,
-					incorrect: prevQuizStats.incorrect + 1,
-					timer: "00:30",
+				setStats((prevStats) => ({
+					...prevStats,
+					incorrect: prevStats.incorrect + 1,
 				}));
 			}
 		});
