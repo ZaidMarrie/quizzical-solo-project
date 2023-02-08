@@ -4,6 +4,7 @@
 	border-top-left-radius: 0.625rem;
 	border-top-right-radius: 0.625rem;
 	background-color: var(--clr-blue-700);
+	box-shadow: var(--shadow-400);
 	display: grid;
 	gap: 1rem;
 	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
