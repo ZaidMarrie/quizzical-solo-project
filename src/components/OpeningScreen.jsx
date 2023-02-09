@@ -1,13 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { usePresets } from "@/context/PresetsContext";
 import styles from "@/styles/OpeningScreen.module.css";
-
-const screenVariants = {
-	hidden: { opacity: 0, x: "100vh" },
-	visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-	exit: { opacity: 0, x: "100vh" },
-};
 
 function OpeningScreen({ startGame }) {
 	const { presets, updatePresets } = usePresets();
@@ -27,7 +20,7 @@ function OpeningScreen({ startGame }) {
 	};
 
 	return (
-		<motion.div
+		<div
 			className={styles.screen}
 			key="OpeningScreen"
 			initial="hidden"
@@ -125,7 +118,7 @@ function OpeningScreen({ startGame }) {
 					Start Quiz
 				</button>
 			</form>
-		</motion.div>
+		</div>
 	);
 }
 
