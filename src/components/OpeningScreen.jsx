@@ -20,14 +20,7 @@ function OpeningScreen({ startGame }) {
 	};
 
 	return (
-		<div
-			className={styles.screen}
-			key="OpeningScreen"
-			initial="hidden"
-			animate="visible"
-			exit="exit"
-			variants={screenVariants}
-		>
+		<div className={styles.screen}>
 			<p>
 				Welcome to my trivia quiz app. This is a multiple choice based game that
 				tests your knowledge on various categories by pulling in questions from
