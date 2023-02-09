@@ -24,6 +24,12 @@
 	--clr-blue-700: hsl(231, 29%, 22%);
 	--clr-blue-900: hsl(233, 36%, 15%);
 
+	--size-300: clamp(0.75rem, 0.69rem + 0.29vw, 0.88rem);
+	--size-400: clamp(1.25rem, 1rem + 0.29vw, 1.45rem);
+	--size-500: clamp(1.5rem, 1.41rem + 0.44vw, 1.69rem);
+	--size-600: clamp(2rem, 1.88rem + 0.59vw, 2.25rem);
+	--size-card: clamp(1.5rem, 1.15rem + 1.76vw, 2.25rem);
+
 	--shadow-100: 0 1px 1px hsl(0 0% 0% / 0.25), 0 0 1px hsl(0 0% 0% / 0.31);
 	--shadow-200: 0 3px 5px hsl(0 0% 0% / 0.2), 0 0 1px hsl(0 0% 0% / 0.31);
 	--shadow-300: 0 8px 12px hsl(0 0% 0% / 0.15), 0 0 1px hsl(0 0% 0% / 0.31);

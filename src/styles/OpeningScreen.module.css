@@ -15,7 +15,7 @@
 
 .form {
 	text-align: start;
-	padding: 2.1875rem 2.5rem;
+	padding: var(--size-card);
 	border-radius: 0.625rem;
 	background-color: var(--clr-blue-700);
 	display: grid;

@@ -1,13 +1,13 @@
 .resultsContainer {
 	margin-top: 2.5rem;
-	padding: 3.25rem 2.5rem;
+	padding: var(--size-card);
 	border-radius: 0.625rem;
 	background-color: var(--clr-blue-600);
 	box-shadow: var(--shadow-400);
 }
 
 .resultsContainer h2 {
-	font-size: 1.5rem;
+	font-size: var(--size-400);
 	margin-bottom: 1.5rem;
 }
 

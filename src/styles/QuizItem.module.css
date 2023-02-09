@@ -1,5 +1,5 @@
 .quizItem {
-	padding: 3.25rem 2.5rem;
+	padding: var(--size-card);
 	border-bottom-left-radius: 0.625rem;
 	border-bottom-right-radius: 0.625rem;
 	background-color: var(--clr-blue-600);
