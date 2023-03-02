@@ -12,13 +12,11 @@ const itemVariants = {
 		x: 0,
 		transition: { duration: 0.4, staggerChildren: 0.15, delayChildren: 0.25 },
 	},
-	exit: { opacity: 0, x: "-50vh" },
 };
 
 const buttonVariants = {
 	hidden: { opacity: 0, x: 100 },
 	visible: { opacity: 1, x: 0 },
-	exit: { opacity: 0, x: -100 },
 };
 
 function QuizItem({ quizItem, handleSelect, nextQuestion, setStats }) {

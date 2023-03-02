@@ -12,11 +12,19 @@ function App() {
 		setGameStarted(true);
 	};
 
+	const restartGame = () => {
+		setGameStarted(false);
+	};
+
 	return (
 		<PresetsProvider>
 			<Layout>
-				<AnimatePresence mode="wait" initial={false}>
-					{gameStarted ? <Quiz /> : <OpeningScreen startGame={startGame} />}
+				<AnimatePresence mode="wait">
+					{gameStarted ? (
+						<Quiz restartGame={restartGame} />
+					) : (
+						<OpeningScreen startGame={startGame} />
+					)}
 				</AnimatePresence>
 			</Layout>
 		</PresetsProvider>

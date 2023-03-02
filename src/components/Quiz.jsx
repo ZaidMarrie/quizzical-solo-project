@@ -2,18 +2,18 @@ import QuizItem from "./QuizItem";
 import StatisticsBar from "./StatisticsBar";
 import QuizResults from "./QuizResults";
 import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { API_URL } from "@/config";
 import { usePresets } from "@/context/PresetsContext";
 import { formatQuizItems } from "@/utils";
 
-const quizVariants = {
+const variants = {
 	hidden: { opacity: 0, x: "100vh" },
 	visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-	exit: { opacity: 0, x: "100vh" },
+	exit: { opacity: 0, x: "-100vh" },
 };
 
-function Quiz() {
+function Quiz({ restartGame }) {
 	const { presets } = usePresets();
 
 	const [quizData, setQuizData] = useState([]);
@@ -25,7 +25,6 @@ function Quiz() {
 	});
 
 	const [quizCompleted, setQuizCompleted] = useState(false);
-	const [playingAgain, setPlayingAgain] = useState(false);
 
 	useEffect(() => {
 		const getQuizData = async (presets) => {
@@ -57,7 +56,7 @@ function Quiz() {
 		};
 
 		getQuizData(presets);
-	}, [playingAgain]);
+	}, []);
 
 	// Selects and highlights an answer
 	const selectAnswer = (answerId) => {
@@ -98,51 +97,42 @@ function Quiz() {
 		setQuizCompleted(true);
 	};
 
-	// Restarts the quiz with new questions
-	const playAgain = () => {
-		setPlayingAgain(true);
-
-		setTimeout(() => setPlayingAgain(false), 0);
-	};
-
 	return (
 		<motion.div
 			key="quiz"
 			initial="hidden"
 			animate="visible"
 			exit="exit"
-			variants={quizVariants}
+			variants={variants}
 		>
-			<AnimatePresence mode="wait">
-				{!quizCompleted && (
-					<StatisticsBar
-						remaining={quizStats.remaining}
-						correct={quizStats.correct}
-						incorrect={quizStats.incorrect}
-						questionIndex={questionIndex}
-						nextQuestion={nextQuestion}
-					/>
-				)}
+			{!quizCompleted && (
+				<StatisticsBar
+					remaining={quizStats.remaining}
+					correct={quizStats.correct}
+					incorrect={quizStats.incorrect}
+					questionIndex={questionIndex}
+					nextQuestion={nextQuestion}
+				/>
+			)}
 
-				{quizData.length > 0 && !quizCompleted ? (
-					<QuizItem
-						key={quizData[questionIndex].id}
-						quizItem={quizData[questionIndex]}
-						handleSelect={selectAnswer}
-						questionIndex={questionIndex}
-						nextQuestion={nextQuestion}
-						setStats={setQuizStats}
-					/>
-				) : null}
+			{quizData.length > 0 && !quizCompleted ? (
+				<QuizItem
+					key={quizData[questionIndex].id}
+					quizItem={quizData[questionIndex]}
+					handleSelect={selectAnswer}
+					questionIndex={questionIndex}
+					nextQuestion={nextQuestion}
+					setStats={setQuizStats}
+				/>
+			) : null}
 
-				{quizCompleted && (
-					<QuizResults
-						correct={quizStats.correct}
-						incorrect={quizStats.incorrect}
-						playAgain={playAgain}
-					/>
-				)}
-			</AnimatePresence>
+			{quizCompleted && (
+				<QuizResults
+					correct={quizStats.correct}
+					incorrect={quizStats.incorrect}
+					restartGame={restartGame}
+				/>
+			)}
 		</motion.div>
 	);
 }

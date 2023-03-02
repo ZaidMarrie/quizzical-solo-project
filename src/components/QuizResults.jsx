@@ -9,7 +9,6 @@ const containerVariants = {
 		x: 0,
 		transition: { duration: 0.5, delayChildren: 0.25 },
 	},
-	exit: { opacity: 0, x: "-50vh" },
 };
 
 // Animation variants for motion.div with className styles.results
@@ -20,16 +19,14 @@ const resultsVariants = {
 		x: 0,
 		transition: { duration: 0.4, staggerChildren: 0.15, delayChildren: 0.25 },
 	},
-	exit: { opacity: 0, x: -100 },
 };
 
 const childVariants = {
 	hidden: { opacity: 0, x: 100 },
 	visible: { opacity: 1, x: 0 },
-	exit: { opacity: 0, x: -100 },
 };
 
-function QuizResults({ correct, incorrect, playAgain }) {
+function QuizResults({ correct, incorrect, restartGame }) {
 	const {
 		presets: { questionCount },
 	} = usePresets();
@@ -54,7 +51,7 @@ function QuizResults({ correct, incorrect, playAgain }) {
 
 				<motion.button
 					className="btn"
-					onClick={playAgain}
+					onClick={restartGame}
 					variants={childVariants}
 				>
 					Play Again
